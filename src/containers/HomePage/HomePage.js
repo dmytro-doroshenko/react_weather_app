@@ -2,18 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {bindActionCreators} from "redux";
 import {getCurrentWeatherByCityName, getWeatherByCoords} from "../../actions/actionCreators/weatherAC";
 import {connect} from "react-redux";
+import CurrentWeatherInfo from "../../components/CurrentWeatherInfo/CurrentWeatherInfo";
+import FavouriteLocations from "../../components/FavouriteLocations/FavouriteLocations";
 
 function HomePage(props) {
 
-   const {getWeatherByCityName, getWeatherByCoords, weatherInfo} = props;
-   const {name, main: {temp}, dt} = weatherInfo;
+   const {getWeatherByCityName, getWeatherByCoords} = props;
    const [searchCity, setSearchCity] = useState('');
-
-   const d = new Date(Date.now());
-   const ds = new Date(dt * 1000)
-   console.log('d', d);
-   console.log('ds', ds);
-   console.log(weatherInfo);
 
    useEffect(() => {
       navigator.geolocation.getCurrentPosition(
@@ -40,10 +35,12 @@ function HomePage(props) {
             <input value={searchCity} onChange={(e) => setSearchCity(e.target.value)}/>
             <input type='submit' />
          </form>
+         <CurrentWeatherInfo />
+         <FavouriteLocations />
          <div>
-            <p>{name}</p>
-            <p>{temp}</p>
+
          </div>
+
       </div>
    );
 }
@@ -52,7 +49,7 @@ function HomePage(props) {
 
 const mapStateToProps = (state) => {
    return {
-      weatherInfo: state.weatherReducer.current_weather,
+
    }
 };
 

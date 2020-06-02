@@ -1,9 +1,12 @@
 import {END_LOADING, ERROR, SET_DEFAULT_LOCATION_WEATHER, START_LOADING} from "../actions/actionTypes/weatherAT";
 
+const favList = localStorage.getItem('favouriteLocationsList');
+
 const initialState = {
    loading: false,
    error: '',
    current_weather: {main : {},},
+   favouriteList: JSON.parse(favList),
 };
 
 export const weatherReducer = (state = initialState, action) => {
